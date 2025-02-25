@@ -139,10 +139,12 @@ export default function Home() {
                                 Design Interior
                             </span>
                             <Image
-                                src="https://i.pinimg.com/564x/48/6d/ea/486dea15b02c62b8e0d541c1a305c902.jpg"
+                                src="https://images.unsplash.com/photo-1564078516393-cf04bd966897?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                 alt=""
                                 width={320}
                                 height={320}
+                                quality={100}
+                                unoptimized={true}
                                 className="w-full h-full absolute top-0 opacity-0 group-hover:opacity-100 object-cover duration-300"
                             />
                         </div>
@@ -152,10 +154,12 @@ export default function Home() {
                                 Design Architecture
                             </span>
                             <Image
-                                src="https://i.pinimg.com/564x/1a/81/fe/1a81fe40904fd6327df7f17911e0e4ad.jpg"
+                                src="https://images.unsplash.com/photo-1576060979108-a59f58c25cc0?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                 alt=""
                                 width={320}
                                 height={320}
+                                quality={100}
+                                unoptimized={true}
                                 className="w-full h-full absolute top-0 opacity-0 group-hover:opacity-100 object-cover duration-300"
                             />
                         </div>
