@@ -7,7 +7,8 @@ import Link from "next/link";
 import Marquee from "react-fast-marquee";
 
 const ServicesPage = async () => {
-    const data = await getServicesPage(SERVICES.PATH);
+    console.log("Fetching services page with slug:", "services");
+    const data = await getServicesPage("services");
 
     const { Content, Heading, Gallery, CallToAction, Video, FormContact } =
         data;
