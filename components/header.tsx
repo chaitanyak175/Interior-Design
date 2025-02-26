@@ -14,7 +14,7 @@ const HeaderComponent = () => {
         <header className="flex justify-between items-center px-6 absolute z-10 w-full">
             <div className=" flex justify-between w-full items-center py-3 border-b-2 border-white">
                 <Link href="/" className="font-bebas text-white text-xl">
-                    Chaitanya's Studio
+                    Chaitanya&apos;s Studio
                 </Link>
 
                 <ul

@@ -1,20 +1,21 @@
 export const revalidate = 0;
 
 import { PortableText } from "@portabletext/react";
-
 import { client } from "@/sanity/lib/client";
 import { getDetailPost } from "@/sanity/queries/posts";
 import { PortableTextComponents } from "@portabletext/react";
-import { default as imageUrlBuilder } from "@sanity/image-url";
-
+import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 const builder = imageUrlBuilder(client);
 
 function urlFor(source: any) {
     return builder.image(source);
 }
+
 const componentsTest: PortableTextComponents = {
     block: {
         h1: ({ children }) => <h1 className="text-5xl mb-6">{children}</h1>,
@@ -32,7 +33,7 @@ const componentsTest: PortableTextComponents = {
     },
     types: {
         image: ({ value }) => (
-            <div className="sm:h-[45vh] aspect-auto w-full h-[33vh]  mb-6">
+            <div className="sm:h-[45vh] aspect-auto w-full h-[33vh] mb-6">
                 <Image
                     src={urlFor(value).url()}
                     alt={value.alt || " "}
@@ -56,7 +57,7 @@ const componentsTest: PortableTextComponents = {
                 <Link
                     href={value?.href}
                     target={target}
-                    className=" font-bold underline text-yellow-300"
+                    className="font-bold underline text-yellow-300"
                 >
                     {children}
                 </Link>
@@ -68,26 +69,26 @@ const componentsTest: PortableTextComponents = {
             <ul className="mt-xl list-disc px-6">{children}</ul>
         ),
         number: ({ children }) => <ol className="mt-lg">{children}</ol>,
-
         checkmarks: ({ children }) => (
             <ol className="m-auto text-lg">{children}</ol>
         ),
     },
     listItem: {
         bullet: ({ children }) => <li>{children}</li>,
-
         checkmarks: ({ children }) => <li>✅ {children}</li>,
     },
 };
 
-const BlogDetailPage = async ({ params }: { params: { slug: string } }) => {
-    // Fix 1: Make sure params is fully resolved before using it
-    const resolvedParams = await Promise.resolve(params);
+interface BlogDetailPageProps {
+    params: { slug: string };
+}
+
+const BlogDetailPage = async ({ params }: BlogDetailPageProps) => {
+    // Await params before using its properties
+    const resolvedParams = await params;
     const { slug } = resolvedParams;
 
     const data = await getDetailPost(slug);
-
-    console.log(data);
 
     return (
         <section
@@ -96,7 +97,7 @@ const BlogDetailPage = async ({ params }: { params: { slug: string } }) => {
         >
             <div
                 id="container"
-                className=" px-6 sm:px-24 w-full h-full flex flex-col items-center"
+                className="px-6 sm:px-24 w-full h-full flex flex-col items-center"
             >
                 <div className="flex flex-col w-full">
                     <div className="flex flex-col sm:flex-row text-white border-b-white border-b-2 pb-5 justify-between items-start sm:items-center">
@@ -105,20 +106,16 @@ const BlogDetailPage = async ({ params }: { params: { slug: string } }) => {
                             <p>{data.publishedAt}</p>
                         </div>
                         <div className="flex flex-wrap">
-                            {/* Fix 2: Add null check before mapping categories */}
-                            {data.categories &&
-                                data.categories.map(
-                                    (category: string, index: number) => {
-                                        return (
-                                            <p
-                                                className="border-2 border-white rounded-full px-6 py-2 mr-2 mb-2"
-                                                key={index}
-                                            >
-                                                {category}
-                                            </p>
-                                        );
-                                    }
-                                )}
+                            {(data.categories ?? []).map(
+                                (category: string, index: number) => (
+                                    <p
+                                        className="border-2 border-white rounded-full px-6 py-2"
+                                        key={index}
+                                    >
+                                        {category}
+                                    </p>
+                                )
+                            )}
                         </div>
                     </div>
                     <div className="py-6">
@@ -129,17 +126,14 @@ const BlogDetailPage = async ({ params }: { params: { slug: string } }) => {
                     <div className="aspect-auto h-[45vh] sm:h-auto w-full">
                         <Image
                             src={data.imageUrl}
-                            alt={data.slug?.current || ""}
+                            alt={data.slug.current || ""}
                             width={420}
                             height={600}
-                            quality={100}
-                            unoptimized={true}
                             className="w-full h-full"
                         />
                     </div>
                 </div>
-
-                <div className="text-white w-full sm:w-[60vw] flex justify-center items-start flex-col pt-10">
+                <div className="text-white w-full sm:w-[60vw] flex justify-center items-start flex-col">
                     <PortableText
                         value={data.body}
                         components={componentsTest}

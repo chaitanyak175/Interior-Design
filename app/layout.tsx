@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import localFont from "@next/font/local";
+// import localFont from "@next/font/local";
 import HeaderComponent from "@/components/header";
 import FooterComponent from "@/components/footer";
 
-const myFont = localFont({
-    src: "../public/HousttelySignature-GOonZ.ttf",
-    variable: "--font-house",
-});
+// const myFont = localFont({
+//     src: "../public/HousttelySignature-GOonZ.ttf",
+//     variable: "--font-house",
+// });
 
 export const metadata: Metadata = {
     title: "Create Next App",

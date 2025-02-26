@@ -1,6 +1,6 @@
 export const revalidate = 0;
 
-import { SERVICES } from "@/constants/services";
+// import { SERVICES } from "@/constants/services";
 import { ContentType, getServicesPage, ImageType } from "@/sanity/queries/page";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,8 +10,7 @@ const ServicesPage = async () => {
     console.log("Fetching services page with slug:", "services");
     const data = await getServicesPage("services");
 
-    const { Content, Heading, Gallery, CallToAction, Video, FormContact } =
-        data;
+    const { Content, Heading, Gallery, CallToAction } = data;
 
     console.log(data);
 
