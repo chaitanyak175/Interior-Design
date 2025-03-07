@@ -1,7 +1,27 @@
+"use client";
+
+import Lenis from "lenis";
 import Image from "next/image";
+import { useEffect } from "react";
 import Marquee from "react-fast-marquee";
 
 export default function Home() {
+    useEffect(() => {
+        const lenis = new Lenis({
+            duration: 1.5, // Adjust duration for the easing effect
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+
+        lenis.on("scroll", (e) => {
+            console.log(e);
+        });
+
+        function raf(time: number) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    }, []);
     return (
         <main className="no-scrollbar">
             <section
